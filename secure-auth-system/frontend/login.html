@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Keystroke Login</title>
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" />
+</head>
+<body style="display:flex;min-height:100vh;align-items:center;justify-content:center;">
+  <main style="max-width:420px;width:100%;text-align:center;">
+    <h1>Secure Authentication</h1>
+    <p><small>Behavioral biometrics + crypto binding.</small></p>
+
+    <section id="login-section" style="margin-top:1rem;">
+      <h3>Login</h3>
+      <form id="loginForm" style="text-align:left;" autocomplete="off">
+        <label>Username
+          <input type="text" id="loginUsername" name="username" required autocomplete="off" />
+        </label>
+        <label>Password
+          <input type="password" id="loginPassword" name="password" required autocomplete="new-password" />
+        </label>
+        <button type="submit" style="width:100%;">Login</button>
+        <div id="loginResult"></div>
+      </form>
+      <div style="margin-top:0.75rem;">
+        <button id="toggle-register" type="button">New user? Register</button>
+      </div>
+    </section>
+
+    <section id="register-section" style="display:none;margin-top:1rem;">
+      <h3>Register</h3>
+      <form id="registrationForm" style="text-align:left;" autocomplete="off">
+        <label>Username
+          <input type="text" id="username" name="username" required autocomplete="off" />
+        </label>
+        <label>Password
+          <input type="password" id="password" name="password" required autocomplete="new-password" />
+        </label>
+        <label>Confirm Password
+          <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password" />
+        </label>
+        <button type="submit" style="width:100%;">Register</button>
+        <div id="registerResult"></div>
+      </form>
+      <div id="password-conditions" style="margin-top:0.5rem; text-align:left;">
+        <small>
+          Password must include:
+          <ul style="margin:0.25rem 0 0 1rem;">
+            <li>At least 3 letters (a–z)</li>
+            <li>At least 2 numbers (0–9)</li>
+            <li>At least 1 special character (! @ # $ % ...)</li>
+          </ul>
+        </small>
+      </div>
+      <p><small style="color:#666;"><strong>🔐 Biometric Registration:</strong> Type the password naturally in both fields at your normal speed. The system learns your unique typing rhythm, key-hold times, and finger patterns. <strong>Only you can replicate your biometric signature.</strong></small></p>
+    </section>
+  </main>
+
+  <script src="./keystroke.js"></script>
+  <script>
+    // Toggle between login and register sections
+    document.getElementById('toggle-register').addEventListener('click', function(e) {
+      e.preventDefault();
+      const loginSection = document.getElementById('login-section');
+      const registerSection = document.getElementById('register-section');
+      
+      if (registerSection.style.display === 'none') {
+        loginSection.style.display = 'none';
+        registerSection.style.display = 'block';
+        this.textContent = 'Back to Login';
+      } else {
+        loginSection.style.display = 'block';
+        registerSection.style.display = 'none';
+        this.textContent = 'New user? Register';
+      }
+    });
+  </script>
+</body>
+</html>
